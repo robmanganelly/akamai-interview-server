@@ -23,7 +23,7 @@ router.get("/:resource", async (req, res, next) => {
       }`,
     });
   }
-  if (resource === "index") return res.status(200).json({ data: "Express" });
+  if (resource === "index") return res.status(200).json({ data: "Express", message: 'navigate to http://localhost:3000' });
 
   return res.json({
     status: 200,

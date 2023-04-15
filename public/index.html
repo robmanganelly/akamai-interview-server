@@ -1,4 +1,4 @@
-<!-- <html>
+<html>
 
 <head>
   <title>Express</title>
@@ -7,7 +7,38 @@
 
 <body>
   <h1>Express</h1>
-  <p>Welcome to Express</p>
+  <p>Welcome to Express Server, this is a mock server, do not use for production</p>
+
+  <h2>Routes</h2>
+  Use the provided routes to request resources from the server
+  <h3>Version 1, this version does not implement pagination</h3>
+  <ul>
+    <li><a href="http://localhost:3000/api/v1/index">index</a>: a message indicating to navigate here</li>
+    <li><a href="http://localhost:3000/api/v1/groups">groups</a></li>
+    <li><a href="http://localhost:3000/api/v1/accountGroups">account groups</a></li>
+    <li><a href="http://localhost:3000/api/v1/accounIds">account ids</a></li>
+    <li><a href="http://localhost:3000/api/v1/groups">groups</a></li>
+    <li>POST <i style="color:#1af">http://localhost:3000/api/v1/data/<b>number</b></i> this request generates <b>number</b> random entries and append those entries to data </li>
+    <li>PATCH <i style="color:#1af">http://localhost:3000/api/v1/data/reset</i> This request resets data to its original state </li>
+  </ul>
+  <h3>Version 1, this version does not implement pagination</h3>
+    <ul>
+      <li><a href="http://localhost:3000/api/v2/index">index</a>: a message indicating to navigate here</li>
+      <li>
+        <span><a href="http://localhost:3000/api/v2/groups/1?limit=5&serialize=true">groups with pagination</a></span>
+        <span>Parameters:</span>
+        <ul>
+          <li>page: is a route parameter: provide a number</li>
+          <li>limit: is an optional query parameter: provide a number</li>
+          <li>serialize: is an optional query parameter: provide true, If this parameter is provided it serialize the responde object into an array of objects {name, [resource]:[rs]}</li>
+        </ul>
+      </li>
+      <li><a href="http://localhost:3000/api/v2/accountGroups/1">account groups</a></li>
+      <li><a href="http://localhost:3000/api/v2/accountIds/1">account ids</a></li>
+      <li><a href="http://localhost:3000/api/v2/groups/1">groups</a></li>
+      <li>POST <i style="color:#1af">http://localhost:3000/api/v2/data/<b>number</b></i> this request generates <b>number</b> random entries and append those entries to data </li>
+      <li>PATCH <i style="color:#1af">http://localhost:3000/api/v2/data/reset</i> This request resets data to its original state </li>
+    </ul>
 </body>
 
-</html> -->
+</html>
