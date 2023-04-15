@@ -1,4 +1,4 @@
-const { readDB } = require("./read-db");
+const { readDB } = require("./fs-driver");
 
 //mock function to simulate paginate data
 module.exports = async function getData(resource, page, limit, serialize=false) {

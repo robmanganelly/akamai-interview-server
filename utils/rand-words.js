@@ -126,7 +126,6 @@ const randWords = [
   "vibrant",
   "warmhearted",
   "xenogenic",
-  "young-at-heart",
   "zeal",
   "amusing",
   "brave",

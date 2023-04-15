@@ -1,5 +1,12 @@
 const { randNames } = require("./rand-words");
 
+
+module.exports.writeDB =(times,replace = false)=>{
+  let oldState = readDB();
+  let newState = performHandling(oldState, times, replace);
+  writeJsonToFile(newState);
+}
+
 function performHandling(oldState, times, replace = false) {
   // create the object
   // assign properties
