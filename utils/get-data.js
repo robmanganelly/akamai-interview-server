@@ -1,4 +1,4 @@
-const { readDB } = require("./generate-entries");
+const { readDB } = require("./read-db");
 
 //mock function to simulate paginate data
 module.exports = async function getData(resource, page, limit, serialize=false) {
@@ -27,6 +27,8 @@ module.exports = async function getData(resource, page, limit, serialize=false) 
     return Object.fromEntries(__dataMap.slice(start, start + limit));
   }else{
     // return an array of objects with name and networks properties
-    return data[resource].keys().sort().slice(start, start + limit).map(key=>({name:key, networks:data[resource][key]}))
+    const __keysMap = Object.keys(data[resource]);
+    __keysMap.sort();
+    return __keysMap.slice(start, start + limit).map(key=>({name:key, [resource]:data[resource][key]}))
   }
 }

@@ -1,5 +1,5 @@
 var express = require("express");
-const { readDB } = require("../utils/generate-entries");
+const { readDB } = require("../utils/read-db");
 var router = express.Router();
 
 /* GET data listing. */
