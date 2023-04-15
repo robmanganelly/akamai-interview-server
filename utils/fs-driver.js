@@ -1,9 +1,9 @@
 const { readFile,writeFileSync } = require("fs");
 const path = require("path");
 
-const __path = path.join(__dirname, "..", "data", "data.json");
 
-module.exports.readDB = async function () {
+ async function readDB(filename=undefined) {
+  const __path = path.join(__dirname, "..", "data", `${!filename ? "data.json":filename}`);
   return new Promise((resolve, reject) => {
     readFile(
       __path,
@@ -20,6 +20,20 @@ module.exports.readDB = async function () {
 };
 
 
-module.exports.writeJsonToFile = (data)=>{
+function writeJsonToFile(data){
+  const __path = path.join(__dirname, "..", "data","data.json");
   writeFileSync(__path, JSON.stringify(data));
 }
+
+async function resetDB() {
+  try{
+    const data = await readDB("data copy.json");
+    writeJsonToFile(data);
+    return true;
+  }catch(err){
+    console.log(err);
+    return false;
+  }
+}
+
+module.exports = { readDB, writeJsonToFile, resetDB };

@@ -1,5 +1,5 @@
 var express = require("express");
-const { readDB } = require("../utils/fs-driver");
+const { readDB, resetDB } = require("../utils/fs-driver");
 const { writeDB } = require("../utils/write-data");
 var router = express.Router();
 
@@ -34,12 +34,18 @@ router.get("/:resource", async (req, res, next) => {
   });
 });
 
-router.post("/generator/:times", async (req, res, next) => {
+router.post("/data/:times", async (req, res, next) => {
   const times = Number(req.params.times ?? 0);
   console.log({ times });
   const replace = req.query.replace || false;
   let rs = await writeDB(times, replace);
   return res.status(rs ? 201: 400).json({message: !rs ? "Failed file generation":"File generated successfully"})
+});
+router.patch("/data/reset", async (req, res, next) => {
+
+  let rs = await resetDB();
+  return res.status(rs ? 201: 400).json({message: !rs ? "Failed file reset":"File successfully reset"})
+
 });
 
 module.exports = router;
