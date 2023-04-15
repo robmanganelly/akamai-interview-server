@@ -17,27 +17,3 @@ module.exports.readDB = async function () {
   });
 };
 
-
-
-
-
-
-
-/**
- * to be used inside createAccountGroups only
- * @param {string[]} names
- * @returns {object[]} an array of groups (name and networks)
- */
-function createGroups(names) {
-  return names.map((name) => ({ name, networks: giveRandomNetwork()}));
-}
-
-/**
- * to be used inside createGroups only
- * @returns {string} a random networks[]
- */
-function giveRandomNetwork() {
-  return new Array(Math.floor(Math.random() * 10)).fill(1).map(
-    ip=>`${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}.${Math.floor(Math.random()*255)}`
-  );
-}
