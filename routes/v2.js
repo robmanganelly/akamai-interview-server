@@ -6,6 +6,10 @@ const { resetDB } = require("../utils/fs-driver");
 const { writeDB } = require("../utils/write-data");
 
 /* GET data listing. */
+router.get("/index", async (req, res, next) => {
+  res.status(200).json({ data: "Express", message: 'navigate to http://localhost:3000' });
+});
+
 router.get("/:resource/:page", async (req, res, next) => {
   console.log({ params: req.params });
 
@@ -15,7 +19,7 @@ router.get("/:resource/:page", async (req, res, next) => {
 
   if (
     !resource ||
-    !["index", "accountGroups", "groups", "accountIds"].includes(resource)
+    !["accountGroups", "groups", "accountIds"].includes(resource)
   ) {
     const status = !resource ? 400 : 404;
     return res.status(status).json({
@@ -26,7 +30,7 @@ router.get("/:resource/:page", async (req, res, next) => {
       }`,
     });
   }
-  if (resource === "index") return res.status(200).json({ data: "Express" });
+
 
   const __data = await getData(resource, page, limit, serialize);
 
