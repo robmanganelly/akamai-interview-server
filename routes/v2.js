@@ -69,6 +69,6 @@ router.get("/:resource/:page", async (req, res, next) => {
 
 
 
-router.post("/:entries", async (req, res, next) => {
+router.post("/:entries", async (req, res, next) => {});
 
 module.exports = router;
