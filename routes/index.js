@@ -1,10 +1,11 @@
 var express = require("express");
+const { readDB } = require("../utils/generate-entries");
 var router = express.Router();
-const data = require("../data/data");
 
 /* GET data listing. */
 router.get("/:resource", async (req, res, next) => {
-  console.log({ params: req.params });
+
+  let data = await readDB();
 
   const resource = req.params.resource;
 

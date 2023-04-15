@@ -1,36 +1,7 @@
 var express = require("express");
+const getData = require("../utils/get-data");
 var router = express.Router();
 
-//mock function to simulate paginate data
-function getData(resource, page, limit, serialize=false) {
-  const data = require("../data/data");
-  const resources = ["accountGroups", "groups", "accountIds"];
-  if (!resources.includes(resource)) {
-    return [];
-  }
-
-  //min page should be 1.
-  const start = (page-1) * limit;
-  
-  //simulate pagination
-  if (resource === "groups"){
-    return data.groups.slice(start, start + limit);
-  }
-  // simulate filtering by name and returning only the first x results in alphabetic order
-  if (!serialize){
-    //return a Map of the first x results in alphabetic order
-    const __dataMap = [...Object.entries(data[resource])]
-    console.log({oldDataMap: __dataMap}); //TODO remove this line
-
-    __dataMap.sort((previous,current)=>previous[0].localeCompare(current[0]))
-    console.log({newDataMap: __dataMap.slice(start, start + limit)}); //TODO remove this line
-    
-    return Object.fromEntries(__dataMap.slice(start, start + limit));
-  }else{
-    // return an array of objects with name and networks properties
-    return data[resource].keys().sort().slice(start, start + limit).map(key=>({name:key, networks:data[resource][key]}))
-  }
-}
 
 /* GET data listing. */
 router.get("/:resource/:page", async (req, res, next) => {
@@ -55,7 +26,7 @@ router.get("/:resource/:page", async (req, res, next) => {
   }
   if (resource === "index") return res.status(200).json({ data: "Express" });
 
-  const __data = getData(resource, page, limit, serialize);
+  const __data = await getData(resource, page, limit, serialize);
 
   return res.json({
     status: 200,
@@ -69,6 +40,8 @@ router.get("/:resource/:page", async (req, res, next) => {
 
 
 
-router.post("/:entries", async (req, res, next) => {});
+router.post("/:entries", async (req, res, next) => {
+
+});
 
 module.exports = router;
