@@ -12,7 +12,7 @@ router.get("/:resource", async (req, res, next) => {
 
   if (
     !resource ||
-    !["index", "accountGroups", "groups", "accountIds"].includes(resource)
+    !["data","index", "accountGroups", "groups", "accountIds"].includes(resource)
   ) {
     const status = !resource ? 400 : 404;
     return res.status(status).json({
@@ -28,7 +28,7 @@ router.get("/:resource", async (req, res, next) => {
   return res.json({
     status: 200,
     data: {
-      [resource]: data[resource],
+      [resource]: resource === "data" ? data : data[resource],
     },
     message: `${resource} retrieved successfully`,
   });
