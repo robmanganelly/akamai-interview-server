@@ -10,7 +10,6 @@ module.exports.readDB = async function () {
         if (err) {
           reject(err);
         } else {
-          console.log({ data });
           resolve(JSON.parse(data));
         }
       }

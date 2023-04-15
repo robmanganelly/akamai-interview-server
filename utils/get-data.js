@@ -19,10 +19,8 @@ module.exports = async function getData(resource, page, limit, serialize=false) 
   if (!serialize){
     //return a Map of the first x results in alphabetic order
     const __dataMap = [...Object.entries(data[resource])]
-    console.log({oldDataMap: __dataMap}); //TODO remove this line
 
     __dataMap.sort((previous,current)=>previous[0].localeCompare(current[0]))
-    console.log({newDataMap: __dataMap.slice(start, start + limit)}); //TODO remove this line
     
     return Object.fromEntries(__dataMap.slice(start, start + limit));
   }else{
