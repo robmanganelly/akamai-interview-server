@@ -20,6 +20,6 @@ module.exports.readDB = async function () {
 };
 
 
-function writeJsonToFile(data) {
+module.exports.writeJsonToFile = (data)=>{
   writeFileSync(__path, JSON.stringify(data));
 }

@@ -1,11 +1,17 @@
+const { readDB, writeJsonToFile } = require("./fs-driver");
 const { randNames } = require("./rand-words");
 
-
-module.exports.writeDB =(times,replace = false)=>{
-  let oldState = readDB();
-  let newState = performHandling(oldState, times, replace);
-  writeJsonToFile(newState);
-}
+module.exports.writeDB = async (times, replace = false) => {
+  try {
+    let oldState = await readDB();
+    console.log({ oldState });
+    let newState = performHandling(oldState, times, replace);
+    writeJsonToFile(newState);
+    return true;
+  } catch (e) {
+    return false;
+  }
+};
 
 function performHandling(oldState, times, replace = false) {
   // create the object
@@ -14,22 +20,30 @@ function performHandling(oldState, times, replace = false) {
   // else merge with previous object
   // write the file
   let newData = Object.create(null);
-  let _accIds = createAccountIds(new Array(times).map(nil=>randNames()));
-  let [_accGr, flatMap] = createAccountGroups(Object.keys(_accIds));//[{},[]]
+  let __names = new Array(times).fill(1).map((nil) => randNames());
+  console.log({ __names });
+  let _accIds = createAccountIds(__names);
+  let [_accGr, flatMap] = createAccountGroups(Object.keys(_accIds)); //[{},[]]
   let _groups = createGroups(flatMap);
 
+  console.log({ _accIds, _accGr, _groups });
+
   if (replace) {
-    newData = { accountIds: _accIds,  accountGroups: _accGr, groups: _groups };
+    console.log("replacing");
+    newData = { accountIds: _accIds, accountGroups: _accGr, groups: _groups };
     return newData;
-  }else{
-    return { 
+  } else {
+    return {
       accountIds: {
-      ..._accIds, ...(oldState.accountIds)},
-      accountGroups:{
-      ..._accGr, ...(oldState.accountGroups)
+        ..._accIds,
+        ...oldState.accountIds,
       },
-      groups:{
-      ..._groups, ...(oldState.groups)}};
+      accountGroups: {
+        ..._accGr,
+        ...oldState.accountGroups,
+      },
+      groups: [..._groups, ...oldState.groups],
+    };
   }
 }
 
